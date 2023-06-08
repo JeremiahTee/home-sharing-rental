@@ -1,4 +1,5 @@
 const { MongoClient, ServerApiVersion } = require("mongodb");
+import { Database } from "../lib/types";
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -11,7 +12,8 @@ const client = new MongoClient(uri, {
   }
 });
 
-export const connectDatabase = async () => {
+// connectDatabase function will return a Promise that when resolved will be an object of type Database
+export const connectDatabase = async (): Promise<Database> => {
   // Connect the client to the server	(optional starting in v4.7)
   await client.connect();
   // Send a ping to confirm a successful connection
