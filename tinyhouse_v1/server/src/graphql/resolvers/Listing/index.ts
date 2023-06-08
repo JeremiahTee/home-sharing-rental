@@ -1,10 +1,10 @@
-import { Database, Listing } from "./../lib/types";
+import { Database, Listing } from "./../../../lib/types";
 // interface types to better define types of a resolver map
 import { IResolvers } from "@graphql-tools/utils";
 import { ObjectId } from "mongodb";
 
 // resolvers object is a map that relates schema fields to functions that resolve those fields
-export const resolvers: IResolvers = {
+export const listingResolvers: IResolvers = {
   Query: {
     listings: async (
       _root: undefined,
