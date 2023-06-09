@@ -7,6 +7,12 @@ interface State<TData> {
   error: boolean;
 }
 
+//extend State interface & add in the refetch field
+// only interfaces can be extended, not types
+interface QueryResult<TData> extends State<TData> {
+  refetch: () => void;
+}
+
 export const useQuery = <TData = any>(query: string) => {
   const [state, setState] = useState<State<TData>>({
     data: null,
