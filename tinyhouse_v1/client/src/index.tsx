@@ -8,6 +8,7 @@ import {
   InMemoryCache
 } from "@apollo/client";
 import reportWebVitals from "./reportWebVitals";
+import "./styles/index.css";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:9000/api"
