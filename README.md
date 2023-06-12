@@ -1,7 +1,3 @@
-# tinyhouse-airbnb-clone
-
-TinyHouse - Airbnb Clone
-
 # TinyHouse | Full Stack Airbnb-like house-sharing app
 
 Real home-sharing app including authentication, data persistence, payments, and deployment based on the [newline course](https://www.newline.co/tinyhouse).
