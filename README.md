@@ -18,13 +18,13 @@ Real home-sharing app including authentication, data persistence, payments, and 
 - [x] Single Page App prototype with with GraphQL schema, mock data, Ant styling, MongoDB connection, type-definition
 - [x] Fetch & display listings in barebone app (temporary for testing AP))
 - [x] Delete listings in barebone app (temporary)
-- [] Barebone app skeleton
-- [] Sign-in, user registration (Google OAuth 2.0)
-- [] Search for listings in different locations in the world (Google Geocoding API integration)
-- [] Book listing for a period of time (signed in only)
-- [] Stripe API setup
-- [] Create listings (hosts only)
-- [] Receive payments through Stripe (hosts only)
-- [] See a history of created listings & bookings made on each listing
-- [] See the history of listings created by other users
-- [] Heroku deployment
+- [ ] Barebone app skeleton
+- [ ] Sign-in, user registration (Google OAuth 2.0)
+- [ ] Search for listings in different locations in the world (Google Geocoding API integration)
+- [ ] Book listing for a period of time (signed in only)
+- [ ] Stripe API setup
+- [ ] Create listings (hosts only)
+- [ ] Receive payments through Stripe (hosts only)
+- [ ] See a history of created listings & bookings made on each listing
+- [ ] See the history of listings created by other users
+- [ ] Heroku deployment
