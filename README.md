@@ -1,17 +1,6 @@
-# TinyHouse | Full Stack Airbnb-like house-sharing app
+# HouseBnb | Full Stack home-sharing app
 
 Real home-sharing app including authentication, data persistence, payments, and deployment based on the [newline course](https://www.newline.co/tinyhouse).
-
-### Tech Stack
-
-| Tech                   | Decision                                                                                                                                                                                                 |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| React                  | React custom hooks to manage component logic                                                                                                                                                             |
-| Node                   | Web server with Node and Express to serve GraphQL API and handle API requests by querying and manipulating data from MongoDB                                                                             |
-| GraphQL, Apollo Server | Client tells the server exactly what it needs, and the server responds back with the typed data. Every field in the schema is type defined. It is performant as no useless data needs to be transferred. |
-| MongoDB                | Configured with the project's TypeScript compiler to leverage basic types & advance types (DefinitelyTyped repository)                                                                                   |
-| TypeScript             | Used on both client & server for a robust type-safe application                                                                                                                                          |
-| Ant Design             | Leverage Ant Design system & React UI for presentable components                                                                                                                                         |
 
 ### High-Level Features checklist
 
@@ -28,3 +17,14 @@ Real home-sharing app including authentication, data persistence, payments, and 
 - [ ] See a history of created listings & bookings made on each listing
 - [ ] See the history of listings created by other users
 - [ ] Heroku deployment
+
+### Tech Stack
+
+| Tech                   | Decision                                                                                                                                                                                                 |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| React                  | React custom hooks to manage component logic                                                                                                                                                             |
+| Node                   | Web server with Node and Express to serve GraphQL API and handle API requests by querying and manipulating data from MongoDB                                                                             |
+| GraphQL, Apollo Server | Client tells the server exactly what it needs, and the server responds back with the typed data. Every field in the schema is type defined. It is performant as no useless data needs to be transferred. |
+| MongoDB                | Configured with the project's TypeScript compiler to leverage basic types & advance types (DefinitelyTyped repository)                                                                                   |
+| TypeScript             | Used on both client & server for a robust type-safe application                                                                                                                                          |
+| Ant Design             | Leverage Ant Design system & React UI for presentable components                                                                                                                                         |
