@@ -1,5 +1,5 @@
-const { MongoClient, ServerApiVersion } = require("mongodb");
-import { Database } from "../lib/types";
+import { MongoClient, ServerApiVersion } from "mongodb";
+import { Database, Booking, Listing, User } from "../lib/types";
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -23,6 +23,8 @@ export const connectDatabase = async (): Promise<Database> => {
   const db = client.db("main");
 
   return {
-    listings: db.collection("test_listings")
+    bookings: db.collection<Booking>("bookings"),
+    listings: db.collection<Listing>("test_listings"),
+    users: db.collection<User>("users")
   };
 };
