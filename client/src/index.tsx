@@ -1,5 +1,6 @@
 import React from "react";
-import { Listings } from "./sections";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Home, Host, Listing, Listings, NotFound, User } from "./sections";
 import { createRoot } from "react-dom/client";
 import {
   ApolloClient,
@@ -16,11 +17,26 @@ const httpLink = createHttpLink({
 
 const client = new ApolloClient({ link: httpLink, cache: new InMemoryCache() });
 
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="*" element={<NotFound />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/host" element={<Host />} />
+        <Route path="/listing/:id" element={<Listing />} />
+        <Route path="/listings/:location?" element={<Listings />} />
+        <Route path="/user/:id" element={<User />} />
+      </Routes>
+    </Router>
+  );
+};
+
 const root = createRoot(document.getElementById("root")!);
 root.render(
   <>
     <ApolloProvider client={client}>
-      <Listings title="TinyHouse Listings" />
+      <App />
     </ApolloProvider>
   </>
 );
