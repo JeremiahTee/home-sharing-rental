@@ -1,6 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Home, Host, Listing, Listings, NotFound, User } from "./sections";
+import { Layout } from "antd";
+import {
+  Home,
+  Host,
+  Listing,
+  Listings,
+  Login,
+  NotFound,
+  User
+} from "./sections";
 import { createRoot } from "react-dom/client";
 import {
   ApolloClient,
@@ -19,16 +28,19 @@ const client = new ApolloClient({ link: httpLink, cache: new InMemoryCache() });
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="*" element={<NotFound />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/host" element={<Host />} />
-        <Route path="/listing/:id" element={<Listing />} />
-        <Route path="/listings/:location?" element={<Listings />} />
-        <Route path="/user/:id" element={<User />} />
-      </Routes>
-    </Router>
+    <Layout id="app">
+      <Router>
+        <Routes>
+          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/host" element={<Host />} />
+          <Route path="/listing/:id" element={<Listing />} />
+          <Route path="/listings/:location?" element={<Listings />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/user/:id" element={<User />} />
+        </Routes>
+      </Router>
+    </Layout>
   );
 };
 
