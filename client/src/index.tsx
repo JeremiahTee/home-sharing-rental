@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Layout } from "antd";
+import { Affix, Layout } from "antd";
 import {
+  AppHeader,
   Home,
   Host,
   Listing,
@@ -40,8 +41,12 @@ const App = () => {
   console.log(viewer);
 
   return (
-    <Layout id="app">
-      <Router>
+    <Router>
+      <Layout id="app">
+        <Affix offsetTop={0} className="app__affix-header">
+          <AppHeader viewer={viewer} />
+        </Affix>
+
         <Routes>
           <Route path="*" element={<NotFound />} />
           <Route path="/" element={<Home />} />
@@ -51,8 +56,8 @@ const App = () => {
           <Route path="/login" element={<Login setViewer={setViewer} />} />
           <Route path="/user/:id" element={<User />} />
         </Routes>
-      </Router>
-    </Layout>
+      </Layout>
+    </Router>
   );
 };
 

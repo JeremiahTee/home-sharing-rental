@@ -654,3 +654,7 @@ html {
     display: none;
   }
 }
+
+.icon {
+  margin-right: 7px;
+}
