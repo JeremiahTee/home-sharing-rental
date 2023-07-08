@@ -7,11 +7,12 @@ import logo from "./assets/housebnb-logo.png";
 
 interface AppHeaderProps {
   viewer: Viewer;
+  setViewer: (viewer: Viewer) => void;
 }
 
 const { Header } = Layout;
 
-export const AppHeader = ({ viewer }: AppHeaderProps) => {
+export const AppHeader = ({ viewer, setViewer }: AppHeaderProps) => {
   console.log("AppHeader viewer: ", viewer);
   return (
     <Header className="app-header">
@@ -23,7 +24,7 @@ export const AppHeader = ({ viewer }: AppHeaderProps) => {
         </div>
       </div>
       <div className="app-header__menu-section">
-        <MenuItems viewer={viewer} />
+        <MenuItems viewer={viewer} setViewer={setViewer} />
       </div>
     </Header>
   );
