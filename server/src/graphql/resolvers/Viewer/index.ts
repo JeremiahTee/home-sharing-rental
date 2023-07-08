@@ -103,11 +103,11 @@ function authUrlQuery(): string {
 
 async function logInMutation(
   _root: undefined,
-  { login }: LogInArgs,
+  { input }: LogInArgs,
   { db }: { db: Database }
 ) {
   try {
-    const code = login ? login.code : null;
+    const code = input ? input.code : null;
     const token = crypto.randomBytes(16).toString("hex");
 
     const viewer: User | null = code
