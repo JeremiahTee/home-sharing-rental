@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Layout } from "antd";
 import {
@@ -10,6 +10,7 @@ import {
   NotFound,
   User
 } from "./sections";
+import { Viewer } from "./lib/types";
 import { createRoot } from "react-dom/client";
 import {
   ApolloClient,
@@ -26,7 +27,18 @@ const httpLink = createHttpLink({
 
 const client = new ApolloClient({ link: httpLink, cache: new InMemoryCache() });
 
+const initialViewer: Viewer = {
+  id: null,
+  token: null,
+  avatar: null,
+  hasWallet: null,
+  didRequest: false
+};
+
 const App = () => {
+  const [viewer, setViewer] = useState<Viewer>(initialViewer);
+  console.log(viewer);
+
   return (
     <Layout id="app">
       <Router>
@@ -36,7 +48,7 @@ const App = () => {
           <Route path="/host" element={<Host />} />
           <Route path="/listing/:id" element={<Listing />} />
           <Route path="/listings/:location?" element={<Listings />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login setViewer={setViewer} />} />
           <Route path="/user/:id" element={<User />} />
         </Routes>
       </Router>
