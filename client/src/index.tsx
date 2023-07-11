@@ -26,7 +26,10 @@ const httpLink = createHttpLink({
   uri: "http://localhost:9000/api"
 });
 
-const client = new ApolloClient({ link: httpLink, cache: new InMemoryCache() });
+const client = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache()
+});
 
 const initialViewer: Viewer = {
   id: null,

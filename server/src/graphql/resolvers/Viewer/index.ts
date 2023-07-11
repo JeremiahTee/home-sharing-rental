@@ -1,14 +1,25 @@
 import crypto from "crypto";
+import { Response, Request } from "express";
 import { IResolvers } from "@graphql-tools/utils";
 import { Google } from "../../../lib/api";
 import { Database, User, Viewer } from "./../../../lib/types";
 import { LogInArgs } from "./types";
 
-const logInViaGoogle = async (
+const cookieOptions = {
+  httpOnly: true,
+  sameSite: false,
+  signed: true,
+  secure: false,
+  withCredentials: true,
+  hostOnly: true
+};
+
+async function logInViaGoogle(
   code: string,
   token: string,
-  db: Database
-): Promise<User | null> => {
+  db: Database,
+  res: Response
+): Promise<User | null> {
   const { user } = await Google.logIn(code);
 
   if (!user) {
@@ -62,7 +73,7 @@ const logInViaGoogle = async (
   let viewer = updateRes.value;
 
   if (!viewer) {
-    const inserRes = await db.users.insertOne({
+    const insertRes = await db.users.insertOne({
       _id: userId,
       name: userName,
       avatar: userAvatar,
@@ -73,11 +84,43 @@ const logInViaGoogle = async (
       listings: []
     });
 
-    viewer = await db.users.findOne({ _id: inserRes.insertedId });
+    viewer = await db.users.findOne({ _id: insertRes.insertedId });
+  }
+
+  console.log("userId: ", userId);
+
+  res.cookie("viewer", userId, {
+    ...cookieOptions,
+    maxAge: 365 * 24 * 60 * 60 * 1000,
+    domain: "localhost:3000"
+  });
+
+  console.log("response: ", res);
+
+  return viewer;
+}
+
+async function logInViaCookie(
+  token: string,
+  db: Database,
+  req: Request,
+  res: Response
+): Promise<User | null> {
+  console.log("token: ", token);
+  const updateReq = await db.users.findOneAndUpdate(
+    { _id: req.signedCookies.viewer },
+    { $set: { token } },
+    { returnDocument: "after" }
+  );
+  const viewer = updateReq.value;
+  console.log("viewer: ", viewer);
+
+  if (!viewer) {
+    res.clearCookie("viewer", cookieOptions);
   }
 
   return viewer;
-};
+}
 
 export const viewerResolvers: IResolvers = {
   Query: {
@@ -104,15 +147,17 @@ function authUrlQuery(): string {
 async function logInMutation(
   _root: undefined,
   { input }: LogInArgs,
-  { db }: { db: Database }
+  { db, req, res }: { db: Database; req: Request; res: Response }
 ) {
   try {
     const code = input ? input.code : null;
     const token = crypto.randomBytes(16).toString("hex");
 
+    console.log("code: ", code);
+
     const viewer: User | null = code
-      ? await logInViaGoogle(code, token, db)
-      : null;
+      ? await logInViaGoogle(code, token, db, res)
+      : await logInViaCookie(token, db, req, res);
 
     if (!viewer) {
       return { didRequest: true };
@@ -137,8 +182,13 @@ function getViewerId(viewer: Viewer): string | undefined {
   return viewer._id;
 }
 
-function logOutMutation(): Viewer {
+function logOutMutation(
+  _root: undefined,
+  _args: unknown,
+  { res }: { res: Response }
+): Viewer {
   try {
+    res.clearCookie("viewer", cookieOptions);
     return { didRequest: true };
   } catch (error) {
     throw new Error(`Failed to log out: ${error}`);
